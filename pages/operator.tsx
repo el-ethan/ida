@@ -1,6 +1,10 @@
+import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
-import Centered, { CenteredMain } from "../components/Centered";
+import { CenteredMain } from "../components/Centered";
+import { checkAnswer } from "../services/checkAnswer";
+
+const LOCK_LETTER = "O";
 
 const Operator = styled.div`
   border: 5px dashed green;
@@ -25,15 +29,12 @@ const OperatorToggle = ({ selectOperator }) => {
   return <Operator onClick={nextIndex}>{operators[index]}</Operator>;
 };
 
-const A = () => {
+const O = () => {
   const [selectedOperator, selectOperator] = useState();
+  const router = useRouter();
 
   const handleSubmit = () => {
-    if (selectedOperator === "+") {
-      alert("🐵 Yay! You have unlocked the first lock! 🎉 🔓");
-    } else {
-      alert("🙈");
-    }
+    checkAnswer(LOCK_LETTER, selectedOperator === "+", router);
   };
 
   return (
@@ -47,4 +48,4 @@ const A = () => {
   );
 };
 
-export default A;
+export default O;

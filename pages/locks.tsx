@@ -1,4 +1,5 @@
-import { useState } from "react";
+import Link from "next/link";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { CenteredMain } from "../components/Centered";
 
@@ -76,7 +77,11 @@ const LockGrid = () => {
       <Container>
         {Object.entries(alphabet).map((entries) => {
           const [letter, href] = entries;
-          return getLetterButton(letter, href);
+          return (
+            <Link href={href} key={letter} passHref>
+              <div>{getLetterButton(letter, href)}</div>
+            </Link>
+          );
         })}
         <button onClick={resetGame}>reset game?</button>
       </Container>
