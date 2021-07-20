@@ -1,6 +1,6 @@
 const alphabet = {
   A: "/animals",
-  B: "",
+  B: "/blue",
   C: "",
   E: "",
   F: "/ferret",
@@ -10,7 +10,7 @@ const alphabet = {
   J: "",
   K: "",
   L: "",
-  M: "",
+  M: "/monkeys",
   N: "",
   O: "/operator",
   P: "",

@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import styled, { keyframes } from "styled-components";
 import ferret from "../public/ferret.png";
 import { checkAnswer } from "../services/checkAnswer";
-import { CenteredMain } from "../components/Centered";
 
 const OuterContainer = styled.div`
   width: 100vw;
