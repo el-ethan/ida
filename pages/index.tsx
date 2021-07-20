@@ -1,5 +1,7 @@
 import { useState, ChangeEvent } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import IdaPic from "../public/ida.jpg";
 
 import Centered from "../components/Centered";
 import Typer from "../components/Typer";
@@ -10,7 +12,8 @@ export default function Home() {
   const [step, setStep] = useState(1);
 
   const handleUserInput = (event: ChangeEvent) => {
-    setPlayerName(event.target.value);
+    const target = event.target as HTMLInputElement;
+    setPlayerName(target.value);
   };
 
   return (
@@ -25,10 +28,7 @@ export default function Home() {
         </>
       ) : (
         <Centered>
-          <img
-            src="https://i.pinimg.com/564x/9c/8b/ed/9c8bed5851760d1a7900f30e3878097b.jpg"
-            height="200px"
-          ></img>
+          <Image alt="monkey in cage" src={IdaPic} height="200px"></Image>
           <Typer
             onFinished={() => setStep(3)}
             text={`Hello ${playerName}. I am so glad I found you. I need your help. My name is Ida. I am a monkey. Yes, I know how to use a computer. Long story. Anyway, a mean scientist is holding me in his lab, and I need your help to escape. Can you help me, ${playerName}?`}

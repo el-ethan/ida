@@ -17,7 +17,7 @@ const Container = styled.div`
   font-size: 3em;
 `;
 
-const OperatorToggle = ({ selectOperator }) => {
+const OperatorToggle = ({ selectOperator }: { selectOperator: Function }) => {
   const [index, setIndex] = useState(0);
   const operators = ["-", "*", "%", "+", "=", "/"];
   const nextIndex = () => {

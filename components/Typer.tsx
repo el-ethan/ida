@@ -18,7 +18,7 @@ const Typer = ({
         }
       }, 100 * (index + 1));
     });
-  }, [text]);
+  }, [text, onFinished]);
 
   return <span>{typedText}</span>;
 };

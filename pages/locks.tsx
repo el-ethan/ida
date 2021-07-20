@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { CenteredMain } from "../components/Centered";
 
@@ -65,7 +65,7 @@ const getLetterButton = (letter: string, href: string) => {
 };
 
 const LockGrid = () => {
-  const [needsReset, setNeedsReset] = useState(false);
+  const [_, setNeedsReset] = useState(false);
 
   const resetGame = () => {
     window && window.localStorage.clear();

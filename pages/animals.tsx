@@ -11,7 +11,7 @@ const Grabable = styled.div`
   cursor: grabbing;
 `;
 
-function shuffle(array: []) {
+function shuffle(array: Animal[]) {
   // https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
   let currentIndex = array.length,
     randomIndex;
@@ -32,11 +32,13 @@ function shuffle(array: []) {
   return array;
 }
 
-const useInterval = (callback, delay) => {
-  const savedCallback = useRef();
+const useInterval = (callback: Function, delay: number) => {
+  const savedCallback = useRef() as React.MutableRefObject<Function>;
 
   useEffect(() => {
-    savedCallback.current = callback;
+    if (savedCallback) {
+      savedCallback.current = callback;
+    }
   }, [callback]);
 
   useEffect(() => {
@@ -50,7 +52,11 @@ const useInterval = (callback, delay) => {
   }, [delay]);
 };
 
-const A = ({ animals }) => {
+interface Animal {
+  url: string;
+}
+
+const A = ({ animals }: { animals: Animal[] }) => {
   const router = useRouter();
   const [catUrl, setCatUrl] = useState(animals[0].url);
   const [animalIndex, setAnimalIndex] = useState(0);
