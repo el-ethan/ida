@@ -27,11 +27,12 @@ const moveY = keyframes`
 const ImageContainer = styled.div`
   width: 100px;
   height: 100px;
+  user-select: none;
 
   animation: ${moveX} 5s linear infinite alternate;
 
   .y {
-    animation: ${moveY} 3s linear infinite alternate;
+    animation: ${moveY} 4s linear infinite alternate;
   }
 `;
 
