@@ -6,9 +6,14 @@ export const checkAnswer = (
   isCorrect: boolean,
   router: NextRouter
 ) => {
+  const playerName =
+    (window && window.localStorage.getItem("ida:playerName")) || "stranger";
+
   if (isCorrect) {
     setCorrectAnswer(letter);
-    alert(`🐵 Yay! You have unlocked the ${letter} lock! 🎉 🔓`);
+    alert(
+      `🐵 Yay! Good job ${playerName}, you have unlocked the ${letter} lock! 🎉 🔓`
+    );
     router.push("/");
   } else {
     alert("🙈");

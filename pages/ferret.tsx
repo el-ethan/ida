@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import ferret from "../public/ferret.png";
 import { checkAnswer } from "../services/checkAnswer";
@@ -27,23 +28,35 @@ const ImageContainer = styled.div`
   width: 100px;
   height: 100px;
 
-  animation: ${moveX} 13s linear infinite alternate;
+  animation: ${moveX} 5s linear infinite alternate;
 
   .y {
-    animation: ${moveY} 5s linear infinite alternate;
+    animation: ${moveY} 3s linear infinite alternate;
   }
 `;
 
 export default function F() {
+  const [caught, setCaught] = useState(false);
+
+  const handleClick = () => {
+    setCaught(true);
+
+    setTimeout(() => checkAnswer("F", true, router), 1000);
+  };
+
   const router = useRouter();
   return (
     <OuterContainer>
       <h1>Freeze the Ferret!</h1>
-      <ImageContainer>
-        <div className="y" onClick={() => checkAnswer("F", true, router)}>
-          <Image alt="flying ferret" layout="intrinsic" src={ferret} />
-        </div>
-      </ImageContainer>
+      {caught ? (
+        <Image alt="flying ferret" layout="intrinsic" src={ferret} />
+      ) : (
+        <ImageContainer>
+          <div className="y" onClick={handleClick}>
+            <Image alt="flying ferret" layout="intrinsic" src={ferret} />
+          </div>
+        </ImageContainer>
+      )}
     </OuterContainer>
   );
 }
