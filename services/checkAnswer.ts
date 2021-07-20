@@ -9,7 +9,7 @@ export const checkAnswer = (
   if (isCorrect) {
     setCorrectAnswer(letter);
     alert(`🐵 Yay! You have unlocked the ${letter} lock! 🎉 🔓`);
-    router.push("/locks");
+    router.push("/");
   } else {
     alert("🙈");
   }
