@@ -3,7 +3,7 @@ const alphabet = {
   B: "",
   C: "",
   E: "",
-  F: "",
+  F: "/ferret",
   G: "",
   H: "",
   I: "",
