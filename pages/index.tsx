@@ -2,6 +2,7 @@ import { useState, ChangeEvent, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import IdaPic from "../public/ida.jpg";
+import IdaHappy from "../public/ida-happy.webp";
 
 import Centered from "../components/Centered";
 import Typer from "../components/Typer";
@@ -82,6 +83,7 @@ const LockGrid = ({ playerName }: { playerName: string }) => {
   return (
     <CenteredMain>
       <Container>
+        <Image src={IdaHappy} />
         <span>{`${playerName}, I am so glad you have agreed to help me. My cage has 26 locks - one for each letter of the alphabet. You will need to solve a puzzle for each lock. Once all locks have been opened 🔓, I will be free! 🎉🐵🎉`}</span>
         {Object.entries(alphabet).map((entries) => {
           const [letter, href] = entries;
