@@ -82,7 +82,7 @@ const LockGrid = ({ playerName }: { playerName: string }) => {
   return (
     <CenteredMain>
       <Container>
-        <span>{`${playerName}, I am so glad you have agreed to help me. My cage has 26 locks. You will need to solve a puzzle for each lock. Once all locks have been opened, I will be free!`}</span>
+        <span>{`${playerName}, I am so glad you have agreed to help me. My cage has 26 locks - one for each letter of the alphabet. You will need to solve a puzzle for each lock. Once all locks have been opened 🔓, I will be free! 🎉🐵🎉`}</span>
         {Object.entries(alphabet).map((entries) => {
           const [letter, href] = entries;
           return (
