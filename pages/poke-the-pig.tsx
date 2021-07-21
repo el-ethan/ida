@@ -29,7 +29,7 @@ const Cell = styled("div")<ICell>`
 export default function P() {
   const router = useRouter();
   const [pigIndex, setPigIndex] = useState(Math.floor(Math.random() * 100));
-  useInterval(() => setPigIndex(Math.floor(Math.random() * 100)), 450);
+  useInterval(() => setPigIndex(Math.floor(Math.random() * 100)), 700);
   return (
     <CenteredMain>
       <h1>Poke the pig!</h1>
