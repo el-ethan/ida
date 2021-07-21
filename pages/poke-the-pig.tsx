@@ -13,7 +13,11 @@ const Container = styled.div`
   height: 500px;
 `;
 
-const Cell = styled.div`
+interface ICell {
+  background: string;
+}
+
+const Cell = styled("div")<ICell>`
   background: ${(props) => props.background};
   height: 50px;
   width: 50px;

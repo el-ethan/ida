@@ -5,7 +5,11 @@ import { CenteredMain } from "../components/Centered";
 import { checkAnswer } from "../services/checkAnswer";
 import Image from "next/image";
 
-const Cell = styled.div`
+interface HidableCell {
+  opacity: string;
+}
+
+const Cell = styled("div")<HidableCell>`
   height: 100px;
   width: 100px;
   background: white;
