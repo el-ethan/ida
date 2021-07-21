@@ -1,7 +1,7 @@
 const alphabet = {
   A: "/animals",
   B: "/blue",
-  C: "",
+  C: "/cat-or-dog",
   E: "",
   F: "/ferret",
   G: "",
