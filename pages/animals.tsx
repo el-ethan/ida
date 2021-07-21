@@ -1,9 +1,10 @@
-import { useEffect, useState, useRef } from "react";
+import { useState } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { CenteredMain } from "../components/Centered";
 import { checkAnswer } from "../services/checkAnswer";
 import Image from "next/image";
+import { useInterval } from "../services/useInterval";
 
 const LOCK_LETTER = "A";
 
@@ -31,26 +32,6 @@ function shuffle(array: Animal[]) {
 
   return array;
 }
-
-const useInterval = (callback: Function, delay: number) => {
-  const savedCallback = useRef() as React.MutableRefObject<Function>;
-
-  useEffect(() => {
-    if (savedCallback) {
-      savedCallback.current = callback;
-    }
-  }, [callback]);
-
-  useEffect(() => {
-    function tick() {
-      savedCallback && savedCallback.current();
-    }
-    if (delay !== null) {
-      let id = setInterval(tick, delay);
-      return () => clearInterval(id);
-    }
-  }, [delay]);
-};
 
 interface Animal {
   url: string;

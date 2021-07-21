@@ -13,7 +13,7 @@ const alphabet = {
   M: "/monkeys",
   N: "",
   O: "/operator",
-  P: "",
+  P: "/poke-the-pig",
   Q: "",
   R: "",
   S: "",
