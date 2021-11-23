@@ -90,10 +90,10 @@ export default function T() {
           return;
       }
       const allMyChoices = [index, ...xIndexes]
-      setXIndexes([index, ...xIndexes])
+      setXIndexes(allMyChoices)
       setYourTurn(false)
 
-      const youWon = checkWinner([index, ...xIndexes])
+      const youWon = checkWinner(allMyChoices)
 
       if (youWon) {
         checkAnswer(LOCK_LETTER, true, router)
@@ -109,9 +109,10 @@ export default function T() {
 
       setTimeout(() => {
           const robotChoice = Math.floor(Math.random() * choicesMinusMine.length)
-          const choice = findMoveForRobot([index, ...xIndexes]) || choicesMinusMine[robotChoice]
-          setOIndexes([choice, ...oIndexes])
-          const robotWon = checkWinner([choice, ...oIndexes])
+          const choice = findMoveForRobot(allMyChoices) || choicesMinusMine[robotChoice]
+          const allRobotsChoices = [choice, ...oIndexes]
+          setOIndexes(allRobotsChoices)
+          const robotWon = checkWinner(allRobotsChoices)
 
           if (robotWon) {
             checkAnswer(LOCK_LETTER, false, router)
