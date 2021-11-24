@@ -52,19 +52,20 @@ export default function T() {
   const [xIndexes, setXIndexes] = useState<number[]>([]);
   const [yourTurn, setYourTurn] = useState(true)
 
-  const findMoveForRobot = (yourChoices: number[]): number | undefined => {
-    for (let i = 0; i < winningPatterns.length; i++) {
-        const commonNumbers = winningPatterns[i].filter(num => yourChoices.includes(num))
-        let choice;
-        if (commonNumbers.length === 2) {
-            choice = winningPatterns[i].find((num) => !yourChoices.includes(num))
-        }
+  const findMoveForRobot = (yourChoices: number[]): number | null => {
+    const almostWinningPattern = winningPatterns.find(pattern => {
+      return pattern.filter(num => yourChoices.includes(num)).length === 2
+    })
 
-        if (choice && !oIndexes.includes(choice)) {
-            return choice
-        } else {
-            continue
-        }
+    let choice;
+    if (almostWinningPattern) {
+      choice = almostWinningPattern.find((num) => !yourChoices.includes(num))
+    }
+
+    if (choice && !oIndexes.includes(choice)) {
+      return choice
+    } else {
+      return null
     }
   }
 
