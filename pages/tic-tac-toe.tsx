@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { CenteredMain } from "../components/Centered";
 import { checkAnswer } from "../services/checkAnswer";
@@ -31,6 +31,17 @@ const ClickedOCell = () => {
     return <OCell>O</OCell>
 }
 
+const winningPatterns = [
+  [0,1,2],
+  [0,3,6],
+  [1,4,7],
+  [2,5,8],
+  [0,4,8],
+  [2,4,6],
+  [6,7,8],
+  [3,4,5],
+]
+
 export default function T() {
   const router = useRouter();
   const cells = Array.from({ length: 9 }, (_, i) => i);
@@ -42,17 +53,6 @@ export default function T() {
   const [yourTurn, setYourTurn] = useState(true)
 
   const findMoveForRobot = (yourChoices: number[]): number | undefined => {
-    const winningPatterns = [
-        [0,1,2],
-        [0,3,6],
-        [1,4,7],
-        [2,5,8],
-        [0,4,8],
-        [2,4,6],
-        [6,7,8],
-        [3,4,5],
-    ]
-
     for (let i = 0; i < winningPatterns.length; i++) {
         const commonNumbers = winningPatterns[i].filter(num => yourChoices.includes(num))
         let choice;
@@ -69,20 +69,8 @@ export default function T() {
   }
 
   const checkWinner = (choices: number[]) => {
-    const choicesString = choices.sort().toString()
-    const winningPatterns = [
-        '0,1,2',
-        '0,3,6',
-        '1,4,7',
-        '2,5,8',
-        '0,4,8',
-        '2,4,6',
-        '6,7,8',
-        '3,4,5',
-    ]
-
     return winningPatterns.some(pattern => {
-        return choicesString.match(pattern)
+      return pattern.filter(num => choices.includes(num)).length === 3
     })
   }
 
@@ -98,6 +86,7 @@ export default function T() {
 
       if (youWon) {
         checkAnswer(LOCK_LETTER, true, router)
+        return;
       }
 
       const choicesMinusMine = remainingChoices.filter(item => item !== index)
