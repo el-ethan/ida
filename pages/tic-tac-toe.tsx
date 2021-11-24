@@ -35,12 +35,13 @@ export default function T() {
   const router = useRouter();
   const cells = Array.from({ length: 9 }, (_, i) => i);
 
-  const [remainingChoices, setRemainingChoices] = useState(cells);  
-  const [oIndexes, setOIndexes] = useState([]);
-  const [xIndexes, setXIndexes] = useState([]);
+  const [remainingChoices, setRemainingChoices] = useState(cells);
+
+  const [oIndexes, setOIndexes] = useState<number[]>([]);
+  const [xIndexes, setXIndexes] = useState<number[]>([]);
   const [yourTurn, setYourTurn] = useState(true)
 
-  const findMoveForRobot = (yourChoices: [number]): number | undefined => {
+  const findMoveForRobot = (yourChoices: number[]): number | undefined => {
     const winningPatterns = [
         [0,1,2],
         [0,3,6],
@@ -67,7 +68,7 @@ export default function T() {
     }
   }
 
-  const checkWinner = (choices: [number]) => {
+  const checkWinner = (choices: number[]) => {
     const choicesString = choices.sort().toString()
     const winningPatterns = [
         '0,1,2',
@@ -85,7 +86,7 @@ export default function T() {
     })
   }
 
-  const switchTurn = (index) => {
+  const switchTurn = (index: number) => {
       if (!yourTurn) {
           return;
       }
