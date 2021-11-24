@@ -98,8 +98,10 @@ export default function T() {
       setRemainingChoices(choicesMinusMine)
 
       setTimeout(() => {
-          const robotChoice = Math.floor(Math.random() * choicesMinusMine.length)
-          const choice = findMoveForRobot(allMyChoices) || choicesMinusMine[robotChoice]
+          const randomIndex = Math.floor(Math.random() * choicesMinusMine.length)
+          const randomChoice = choicesMinusMine[randomIndex]
+          const bestChoice = findMoveForRobot(allMyChoices)
+          const choice =  bestChoice || randomChoice 
           const allRobotsChoices = [choice, ...oIndexes]
           setOIndexes(allRobotsChoices)
           const robotWon = checkWinner(allRobotsChoices)
