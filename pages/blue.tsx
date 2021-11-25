@@ -1,7 +1,7 @@
-import { useRouter } from "next/router";
-import styled from "styled-components";
-import { CenteredMain } from "../components/Centered";
-import { checkAnswer } from "../services/checkAnswer";
+import { useRouter } from 'next/router';
+import styled from 'styled-components';
+import { CenteredMain } from '../components/Centered';
+import { checkAnswer } from '../services/checkAnswer';
 
 const Container = styled.div`
   display: flex;
@@ -36,7 +36,7 @@ export default function B() {
       <Container>
         {cells.map((c) => {
           return c === bluestIndex ? (
-            <div onClick={() => checkAnswer("B", true, router)}>
+            <div onClick={() => checkAnswer('B', true, router)}>
               <Blue />
             </div>
           ) : (

@@ -1,15 +1,15 @@
-import { useState } from "react";
-import { useRouter } from "next/router";
-import styled from "styled-components";
-import { CenteredMain } from "../components/Centered";
-import { checkAnswer } from "../services/checkAnswer";
-import Image from "next/image";
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import styled from 'styled-components';
+import { CenteredMain } from '../components/Centered';
+import { checkAnswer } from '../services/checkAnswer';
+import Image from 'next/image';
 
 interface HidableCell {
   opacity: string;
 }
 
-const Cell = styled("div")<HidableCell>`
+const Cell = styled('div')<HidableCell>`
   height: 100px;
   width: 100px;
   background: white;
@@ -23,14 +23,14 @@ const DisappearingCell = ({
   disabled: boolean;
   onClick: Function;
 }) => {
-  const [opacity, setOpacity] = useState("100%");
+  const [opacity, setOpacity] = useState('100%');
 
   const handleClick = () => {
     onClick();
     if (disabled) {
       return;
     }
-    setOpacity("0");
+    setOpacity('0');
   };
 
   return <Cell onClick={handleClick} opacity={opacity} />;
@@ -70,17 +70,17 @@ const C = ({ animal, isCat }: { animal: string; isCat: boolean }) => {
     }
   };
 
-  const handleSubmit = (type: "cat" | "dog") => {
+  const handleSubmit = (type: 'cat' | 'dog') => {
     if (clicks < 1) {
       return;
     }
     setSubmitting(true);
-    const catGuessedCorrectly = type === "cat" && isCat;
-    const dogGuessedCorrectly = type === "dog" && isDog;
+    const catGuessedCorrectly = type === 'cat' && isCat;
+    const dogGuessedCorrectly = type === 'dog' && isDog;
     const guessedCorrectly = catGuessedCorrectly || dogGuessedCorrectly;
 
     setTimeout(() => {
-      checkAnswer("C", catGuessedCorrectly || dogGuessedCorrectly, router);
+      checkAnswer('C', catGuessedCorrectly || dogGuessedCorrectly, router);
     });
     if (!guessedCorrectly) {
       router.reload();
@@ -89,8 +89,8 @@ const C = ({ animal, isCat }: { animal: string; isCat: boolean }) => {
 
   return (
     <>
-      <ButtonLeft onClick={() => handleSubmit("cat")}>Cat?</ButtonLeft>
-      <ButtonRight onClick={() => handleSubmit("dog")}>Dog?</ButtonRight>
+      <ButtonLeft onClick={() => handleSubmit('cat')}>Cat?</ButtonLeft>
+      <ButtonRight onClick={() => handleSubmit('dog')}>Dog?</ButtonRight>
       <CenteredMain>
         <Hider>
           <Image
@@ -128,7 +128,7 @@ export async function getServerSideProps() {
     animal = cat[0].url;
     isCat = true;
   } else {
-    const dogResponse = await fetch("https://dog.ceo/api/breeds/image/random");
+    const dogResponse = await fetch('https://dog.ceo/api/breeds/image/random');
     const dog = await dogResponse.json();
     animal = dog.message;
   }
