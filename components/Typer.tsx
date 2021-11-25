@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 const Typer = ({
   text,
@@ -7,10 +7,10 @@ const Typer = ({
   text: string;
   onFinished?: Function;
 }) => {
-  const [typedText, setTypedText] = useState("");
+  const [typedText, setTypedText] = useState('');
 
   useEffect(() => {
-    text.split("").forEach((char, index) => {
+    text.split('').forEach((char, index) => {
       setTimeout(() => {
         setTypedText(text.substr(0, index) + char);
         if (index + 1 === text.length) {

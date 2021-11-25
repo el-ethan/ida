@@ -1,6 +1,6 @@
-import Link from "next/link";
-import Centered, { CenteredMain } from "../components/Centered";
-import Typer from "../components/Typer";
+import Link from 'next/link';
+import Centered, { CenteredMain } from '../components/Centered';
+import Typer from '../components/Typer';
 
 const Accepted = () => {
   return (

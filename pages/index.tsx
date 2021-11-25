@@ -1,17 +1,17 @@
-import { useState, ChangeEvent, useEffect } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import IdaPic from "../public/ida.jpg";
-import IdaHappy from "../public/ida-happy.webp";
+import { useState, ChangeEvent, useEffect } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import IdaPic from '../public/ida.jpg';
+import IdaHappy from '../public/ida-happy.webp';
 
-import Centered from "../components/Centered";
-import Typer from "../components/Typer";
-import styles from "../styles/Home.module.css";
+import Centered from '../components/Centered';
+import Typer from '../components/Typer';
+import styles from '../styles/Home.module.css';
 
-import styled from "styled-components";
-import { CenteredMain } from "../components/Centered";
+import styled from 'styled-components';
+import { CenteredMain } from '../components/Centered';
 
-import alphabet from "../services/alphabet";
+import alphabet from '../services/alphabet';
 
 const Container = styled.div`
   display: flex;
@@ -60,10 +60,10 @@ const Disabled = styled.div`
 `;
 
 const getLetterButton = (letter: string, href: string) => {
-  if (typeof window === "undefined") return;
+  if (typeof window === 'undefined') return;
 
   const unlocked = window && window.localStorage.getItem(`ida:locks:${letter}`);
-  if (href === "") {
+  if (href === '') {
     return <Disabled>{letter}</Disabled>;
   } else if (unlocked) {
     return <Unlocked>{letter}</Unlocked>;
@@ -101,11 +101,11 @@ const LockGrid = ({ playerName }: { playerName: string }) => {
 
 export default function Home() {
   const [introduced, setIntroduced] = useState(false);
-  const [playerName, setPlayerName] = useState("");
+  const [playerName, setPlayerName] = useState('');
 
   useEffect(() => {
     window &&
-      setPlayerName(window.localStorage.getItem("ida:playerName") || "");
+      setPlayerName(window.localStorage.getItem('ida:playerName') || '');
   }, [introduced]);
 
   return playerName ? (
@@ -116,13 +116,13 @@ export default function Home() {
 }
 
 function Intro({ setIntroduced }: { setIntroduced: Function }) {
-  const [playerName, setPlayerName] = useState("");
+  const [playerName, setPlayerName] = useState('');
   const [step, setStep] = useState(1);
 
   const handleUserInput = (event: ChangeEvent) => {
     const target = event.target as HTMLInputElement;
     setPlayerName(target.value);
-    window && window.localStorage.setItem("ida:playerName", target.value);
+    window && window.localStorage.setItem('ida:playerName', target.value);
   };
 
   return (

@@ -1,10 +1,10 @@
-import { useRouter } from "next/router";
-import { useState } from "react";
-import styled from "styled-components";
-import { CenteredMain } from "../components/Centered";
-import { checkAnswer } from "../services/checkAnswer";
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import styled from 'styled-components';
+import { CenteredMain } from '../components/Centered';
+import { checkAnswer } from '../services/checkAnswer';
 
-const LOCK_LETTER = "O";
+const LOCK_LETTER = 'O';
 
 const Operator = styled.div`
   border: 5px dashed green;
@@ -19,7 +19,7 @@ const Container = styled.div`
 
 const OperatorToggle = ({ selectOperator }: { selectOperator: Function }) => {
   const [index, setIndex] = useState(0);
-  const operators = ["-", "*", "%", "+", "=", "/"];
+  const operators = ['-', '*', '%', '+', '=', '/'];
   const nextIndex = () => {
     const newIndex = index + 1 === operators.length ? 0 : index + 1;
     selectOperator(operators[newIndex]);
@@ -34,7 +34,7 @@ const O = () => {
   const router = useRouter();
 
   const handleSubmit = () => {
-    checkAnswer(LOCK_LETTER, selectedOperator === "+", router);
+    checkAnswer(LOCK_LETTER, selectedOperator === '+', router);
   };
 
   return (
