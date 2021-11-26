@@ -112,7 +112,7 @@ export default function T() {
                 Math.random() * choicesMinusMine.length
             );
             const randomChoice = choicesMinusMine[randomIndex];
-            const bestChoice = findMoveForRobot(allMyChoices, robotChoices);
+            const bestChoice = findMoveForRobot(allMyChoices, oIndexes);
             const choice = bestChoice || randomChoice;
             const allRobotsChoices = [choice, ...oIndexes];
             setOIndexes(allRobotsChoices);
