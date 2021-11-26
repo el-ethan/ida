@@ -38,4 +38,8 @@ describe('findMoveForRobot', () => {
     it('should return the "best choice" even when player choices are not in order', () => {
         expect(findMoveForRobot([0, 8], [3])).toBe(4);
     });
+
+    it('should return the "best choice" if the first two moves are 2, 1', () => {
+        expect(findMoveForRobot([2, 1], [3])).toBe(0);
+    });
 });
