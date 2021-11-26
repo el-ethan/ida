@@ -52,6 +52,26 @@ export const checkWinner = (choices: number[]) => {
     });
 };
 
+export const findMoveForRobot = (
+    yourChoices: number[],
+    robotChoices: number[]
+): number | null => {
+    const almostWinningPattern = winningPatterns.find(pattern => {
+        return pattern.filter(num => yourChoices.includes(num)).length === 2;
+    });
+
+    let choice;
+    if (almostWinningPattern) {
+        choice = almostWinningPattern.find(num => !yourChoices.includes(num));
+    }
+
+    if (choice && !robotChoices.includes(choice)) {
+        return choice;
+    } else {
+        return null;
+    }
+};
+
 export default function T() {
     const router = useRouter();
     const cells = Array.from({ length: 9 }, (_, i) => i);
@@ -61,27 +81,6 @@ export default function T() {
     const [oIndexes, setOIndexes] = useState<number[]>([]);
     const [xIndexes, setXIndexes] = useState<number[]>([]);
     const [yourTurn, setYourTurn] = useState(true);
-
-    const findMoveForRobot = (yourChoices: number[]): number | null => {
-        const almostWinningPattern = winningPatterns.find(pattern => {
-            return (
-                pattern.filter(num => yourChoices.includes(num)).length === 2
-            );
-        });
-
-        let choice;
-        if (almostWinningPattern) {
-            choice = almostWinningPattern.find(
-                num => !yourChoices.includes(num)
-            );
-        }
-
-        if (choice && !oIndexes.includes(choice)) {
-            return choice;
-        } else {
-            return null;
-        }
-    };
 
     const switchTurn = (index: number) => {
         if (!yourTurn) {
@@ -113,7 +112,7 @@ export default function T() {
                 Math.random() * choicesMinusMine.length
             );
             const randomChoice = choicesMinusMine[randomIndex];
-            const bestChoice = findMoveForRobot(allMyChoices);
+            const bestChoice = findMoveForRobot(allMyChoices, robotChoices);
             const choice = bestChoice || randomChoice;
             const allRobotsChoices = [choice, ...oIndexes];
             setOIndexes(allRobotsChoices);
