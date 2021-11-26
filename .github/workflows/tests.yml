@@ -1,4 +1,4 @@
-name: Tests
+name: Tests and Linting
 on:
   pull_request:
     branches: [main]
@@ -14,3 +14,6 @@ jobs:
 
       - name: Tests
         run: yarn test
+
+      - name: Linting
+        run: yarn lint
