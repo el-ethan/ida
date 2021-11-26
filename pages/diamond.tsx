@@ -19,12 +19,12 @@ const Container = styled.div`
 const D = () => {
   const size = 16;
   const cells = Array.from ({length: size}, (x, i) => i + 1);
-  const diamondCellIndex = Math.floor(Math.random() * size);
+  const diamondCellIndex = Math.ceil(Math.random() * size);
   console.log(diamondCellIndex);
 
   return (
     <CenteredMain>
-      <h1>Dig The Diamond</h1>
+      <h1>Dig The 💎</h1>
       <Container>
       {cells.map((c) => {
         return <Cell key={c} cellIndex={c} diamondCellIndex={diamondCellIndex}></Cell>

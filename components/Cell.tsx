@@ -8,8 +8,13 @@ const BrownSquare = styled.div`
   width: 100px;
   background: #7e4e4e;
   border: 1px solid black;
+  text-align: center;
 `;
 
+const Diamond = styled.p`
+  font-size: 2rem;
+  opacity: 1;
+`
 
 const Cell = ({cellIndex, diamondCellIndex}: {cellIndex: number; diamondCellIndex: number}) => {
   const router = useRouter();
@@ -29,7 +34,11 @@ const Cell = ({cellIndex, diamondCellIndex}: {cellIndex: number; diamondCellInde
   }
 
   return (
-    <BrownSquare onClick={handleClick}>{`${cellIndex}, ${diamondCellIndex}`}</BrownSquare>
+    <>
+    {cellIndex === diamondCellIndex ? 
+    <BrownSquare onClick={handleClick}><Diamond>{`💎`}</Diamond></BrownSquare> : 
+    <BrownSquare onClick={handleClick}>{`${cellIndex}, ${diamondCellIndex}`}</BrownSquare>}
+    </>
   )
 }
 
