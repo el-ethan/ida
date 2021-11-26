@@ -60,7 +60,6 @@ export const findMoveForRobot = (
         return pattern.filter(num => yourChoices.includes(num)).length === 2;
     });
 
-    console.log({ almostWinningPattern });
     let choice;
     if (almostWinningPattern) {
         choice = almostWinningPattern.find(num => !yourChoices.includes(num));

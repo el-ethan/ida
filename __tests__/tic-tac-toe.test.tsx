@@ -1,4 +1,4 @@
-import { checkWinner, findMoveForRobot } from '.';
+import { checkWinner, findMoveForRobot } from '../pages/tic-tac-toe';
 
 describe('checkWinner', () => {
     it('should return true when a winning pattern is matched', () => {
