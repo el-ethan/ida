@@ -1,14 +1,23 @@
 import { useRouter } from 'next/router';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from 'styled-components';
 import { checkAnswer } from '../services/checkAnswer';
 
-const BrownSquare = styled.div`
+interface IBrownSquare {
+  opacity: number;
+}
+
+const BrownSquare = styled.div<IBrownSquare>`
   height: 100px;
   width: 100px;
-  background: #7e4e4e;
-  border: 1px solid black;
+  background: #640f0f;
+  opacity: ${props => props.opacity};
   text-align: center;
+`;
+const Container = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 500px;
 `;
 
 const Diamond = styled.p`
@@ -19,26 +28,28 @@ const Diamond = styled.p`
 const Cell = ({cellIndex, diamondCellIndex}: {cellIndex: number; diamondCellIndex: number}) => {
   const router = useRouter();
   const [digIndex, setDigIndex] = useState(0);
+  const [squareOpacity, setSquareOpacity] = useState(0.8);
+  useEffect(() => {
+    if(getDiamond()) {
+      checkAnswer("D", true, router)
+    }
+  })
   const handleClick = () => {
     if(digIndex < 5) {
-      setDigIndex((preIndex) => {
-        return preIndex + 1
-      })
+      setDigIndex((preIndex) => preIndex + 1)
+      setSquareOpacity((preOpacity) => preOpacity + 0.04)
     }
     console.log({cellIndex, digIndex});
-    if(cellIndex === diamondCellIndex) {
-        if(digIndex === 5) {
-        checkAnswer("D", true, router)
-      }
-    }
+  }
+
+  const getDiamond = () => {
+    return cellIndex === diamondCellIndex && digIndex === 5;
   }
 
   return (
-    <>
-    {cellIndex === diamondCellIndex ? 
-    <BrownSquare onClick={handleClick}><Diamond>{`💎`}</Diamond></BrownSquare> : 
-    <BrownSquare onClick={handleClick}>{`${cellIndex}, ${diamondCellIndex}`}</BrownSquare>}
-    </>
+    <BrownSquare opacity={squareOpacity} onClick={handleClick}>
+    {getDiamond() && <Diamond>{`💎`}</Diamond>}
+    </BrownSquare>
   )
 }
 
