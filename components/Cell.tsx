@@ -24,16 +24,25 @@ const Diamond = styled.p`
   font-size: 2rem;
   opacity: 1;
 `
+type CellProps = {
+  cellIndex: number; 
+  diamondCellIndex: number; 
+  ghostCellIndex: number
+}
 
-const Cell = ({cellIndex, diamondCellIndex}: {cellIndex: number; diamondCellIndex: number}) => {
+const Cell = ({cellIndex, diamondCellIndex, ghostCellIndex}: CellProps) => {
   const router = useRouter();
   const [digIndex, setDigIndex] = useState(0);
   const [squareOpacity, setSquareOpacity] = useState(0.8);
   useEffect(() => {
     if(getDiamond()) {
-      checkAnswer("D", true, router)
+      checkAnswer("D", true, router);
     }
-  })
+    if(getGhost()) {
+      checkAnswer("D", false, router, true);
+    }
+  });
+
   const handleClick = () => {
     if(digIndex < 5) {
       setDigIndex((preIndex) => preIndex + 1)
@@ -45,10 +54,14 @@ const Cell = ({cellIndex, diamondCellIndex}: {cellIndex: number; diamondCellInde
   const getDiamond = () => {
     return cellIndex === diamondCellIndex && digIndex === 5;
   }
+  const getGhost = () => {
+    return cellIndex === ghostCellIndex && digIndex === 5;
+  }
 
   return (
     <BrownSquare opacity={squareOpacity} onClick={handleClick}>
     {getDiamond() && <Diamond>{`💎`}</Diamond>}
+    {getGhost() && <Diamond>{`👻`}</Diamond>}
     </BrownSquare>
   )
 }
