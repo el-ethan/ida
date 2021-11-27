@@ -113,7 +113,7 @@ export default function T() {
             );
             const randomChoice = choicesMinusMine[randomIndex];
             const bestChoice = findMoveForRobot(allMyChoices, oIndexes);
-            const choice = bestChoice || randomChoice;
+            const choice = bestChoice ?? randomChoice;
             const allRobotsChoices = [choice, ...oIndexes];
             setOIndexes(allRobotsChoices);
             const robotWon = checkWinner(allRobotsChoices);
