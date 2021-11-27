@@ -1,12 +1,12 @@
-import { useState } from "react";
-import { useRouter } from "next/router";
-import styled from "styled-components";
-import { CenteredMain } from "../components/Centered";
-import { checkAnswer } from "../services/checkAnswer";
-import Image from "next/image";
-import { useInterval } from "../services/useInterval";
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import styled from 'styled-components';
+import { CenteredMain } from '../components/Centered';
+import { checkAnswer } from '../services/checkAnswer';
+import Image from 'next/image';
+import { useInterval } from '../services/useInterval';
 
-const LOCK_LETTER = "A";
+const LOCK_LETTER = 'A';
 
 const Grabable = styled.div`
   cursor: grabbing;
@@ -42,7 +42,7 @@ const A = ({ animals }: { animals: Animal[] }) => {
   const [catUrl, setCatUrl] = useState(animals[0].url);
   const [animalIndex, setAnimalIndex] = useState(0);
   const [isDog, setIsDog] = useState(
-    animals[0].url.startsWith("https://images.dog.ceo")
+    animals[0].url.startsWith('https://images.dog.ceo')
   );
 
   useInterval(() => {
@@ -50,12 +50,12 @@ const A = ({ animals }: { animals: Animal[] }) => {
     if (animalIndex <= animals.length - 1) {
       animal = animals[animalIndex];
       setCatUrl(animal.url);
-      setIsDog(animal.url.startsWith("https://images.dog.ceo"));
+      setIsDog(animal.url.startsWith('https://images.dog.ceo'));
       setAnimalIndex(animalIndex + 1);
     } else {
       animal = animals[0];
       setCatUrl(animal.url);
-      setIsDog(animal.url.startsWith("https://images.dog.ceo"));
+      setIsDog(animal.url.startsWith('https://images.dog.ceo'));
       setAnimalIndex(1);
     }
   }, 1000);
@@ -87,7 +87,7 @@ export async function getServerSideProps() {
     `https://api.thecatapi.com/v1/images/search?limit=10`
   );
   const cats = await catResponse.json();
-  const dogResponse = await fetch("https://dog.ceo/api/breeds/image/random");
+  const dogResponse = await fetch('https://dog.ceo/api/breeds/image/random');
   const dog = await dogResponse.json();
   const animals = shuffle([...cats, { url: dog.message }]);
 

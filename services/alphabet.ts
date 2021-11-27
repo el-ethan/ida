@@ -18,7 +18,7 @@ const alphabet = {
     Q: '',
     R: '',
     S: '',
-    T: '',
+    T: "/tic-tac-toe",
     U: '',
     V: '',
     W: '',

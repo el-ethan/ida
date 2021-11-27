@@ -1,9 +1,9 @@
-import Image from "next/image";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import styled, { keyframes } from "styled-components";
-import ferret from "../public/ferret.png";
-import { checkAnswer } from "../services/checkAnswer";
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import styled, { keyframes } from 'styled-components';
+import ferret from '../public/ferret.png';
+import { checkAnswer } from '../services/checkAnswer';
 
 const OuterContainer = styled.div`
   width: 100vw;
@@ -44,7 +44,7 @@ export default function F() {
   const handleClick = () => {
     setCaught(true);
 
-    setTimeout(() => checkAnswer("F", true, router), 1000);
+    setTimeout(() => checkAnswer('F', true, router), 1000);
   };
 
   const router = useRouter();
