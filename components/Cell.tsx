@@ -46,7 +46,7 @@ const Cell = ({ cellIndex, diamondCellIndex, ghostCellIndex }: CellProps) => {
             setDigIndex(preIndex => preIndex + 1);
             setSquareOpacity(preOpacity => preOpacity + 0.04);
         }
-        console.log({ cellIndex, digIndex });
+        // console.log({ cellIndex, digIndex });
     };
 
     const getDiamond = () => {
