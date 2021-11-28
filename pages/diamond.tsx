@@ -28,7 +28,6 @@ const D = () => {
   };
 
   const ghostCellIndex = getGhostCellIndex();
-  console.log({ diamondCellIndex, ghostCellIndex });
 
   return (
     <CenteredMain>
