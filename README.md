@@ -2,6 +2,8 @@
 
 Ida is a collection of mini games meant for kids. The games are meant to be slightly challenging, but also fun and quick. There are 26 games representing the 26 letters of the alphabet. Ida is the name of the app/game, but also the name of the main character, who is a smart monkey held captive by an evil scientist. The object of the game is to free Ida the monkey from the evil scientist by completing the 26 mini games and releasing the 26 corresponding locks on Ida's cage.
 
+The production game can be found at https://ida-el-ethan.vercel.app/
+
 # Development setup
 
 0. (Optional but recommended) Install [nvm](https://github.com/nvm-sh/nvm#installing-and-updating) and then run `nvm use` from the project root to install a compatible version of node.
