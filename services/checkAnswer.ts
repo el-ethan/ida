@@ -4,7 +4,8 @@ import { setCorrectAnswer } from "./localStorage";
 export const checkAnswer = (
   letter: string,
   isCorrect: boolean,
-  router: NextRouter
+  router: NextRouter,
+  reloadPage = false
 ) => {
   const playerName =
     (window && window.localStorage.getItem("ida:playerName")) || "stranger";
@@ -17,5 +18,8 @@ export const checkAnswer = (
     router.push("/");
   } else {
     alert("🙈");
+    if(reloadPage) {
+      router.reload();
+    }
   }
 };

@@ -28,124 +28,124 @@ const OCell = styled(Cell)`
 `;
 
 const ClickedXCell = () => {
-    return <XCell>X</XCell>;
+  return <XCell>X</XCell>;
 };
 
 const ClickedOCell = () => {
-    return <OCell>O</OCell>;
+  return <OCell>O</OCell>;
 };
 
 const winningPatterns = [
-    [0, 1, 2],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-    [6, 7, 8],
-    [3, 4, 5]
+  [0, 1, 2],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6],
+  [6, 7, 8],
+  [3, 4, 5]
 ];
 
 export const checkWinner = (choices: number[]) => {
-    return winningPatterns.some(pattern => {
-        return pattern.filter(num => choices.includes(num)).length === 3;
-    });
+  return winningPatterns.some(pattern => {
+    return pattern.filter(num => choices.includes(num)).length === 3;
+  });
 };
 
 export const findMoveForRobot = (
-    yourChoices: number[],
-    robotChoices: number[]
+  yourChoices: number[],
+  robotChoices: number[]
 ): number | null => {
-    const almostWinningPattern = winningPatterns.find(pattern => {
-        return pattern.filter(num => yourChoices.includes(num)).length === 2;
-    });
+  const almostWinningPattern = winningPatterns.find(pattern => {
+    return pattern.filter(num => yourChoices.includes(num)).length === 2;
+  });
 
-    let choice;
-    if (almostWinningPattern) {
-        choice = almostWinningPattern.find(num => !yourChoices.includes(num));
-    }
+  let choice;
+  if (almostWinningPattern) {
+    choice = almostWinningPattern.find(num => !yourChoices.includes(num));
+  }
 
-    if (choice !== undefined && !robotChoices.includes(choice)) {
-        return choice;
-    } else {
-        return null;
-    }
+  if (choice !== undefined && !robotChoices.includes(choice)) {
+    return choice;
+  } else {
+    return null;
+  }
 };
 
 export default function T() {
-    const router = useRouter();
-    const cells = Array.from({ length: 9 }, (_, i) => i);
+  const router = useRouter();
+  const cells = Array.from({ length: 9 }, (_, i) => i);
 
-    const [remainingChoices, setRemainingChoices] = useState(cells);
+  const [remainingChoices, setRemainingChoices] = useState(cells);
 
-    const [oIndexes, setOIndexes] = useState<number[]>([]);
-    const [xIndexes, setXIndexes] = useState<number[]>([]);
-    const [yourTurn, setYourTurn] = useState(true);
+  const [oIndexes, setOIndexes] = useState<number[]>([]);
+  const [xIndexes, setXIndexes] = useState<number[]>([]);
+  const [yourTurn, setYourTurn] = useState(true);
 
-    const switchTurn = (index: number) => {
-        if (!yourTurn) {
-            return;
-        }
-        const allMyChoices = [index, ...xIndexes];
-        setXIndexes(allMyChoices);
-        setYourTurn(false);
+  const switchTurn = (index: number) => {
+    if (!yourTurn) {
+      return;
+    }
+    const allMyChoices = [index, ...xIndexes];
+    setXIndexes(allMyChoices);
+    setYourTurn(false);
 
-        const youWon = checkWinner(allMyChoices);
+    const youWon = checkWinner(allMyChoices);
 
-        if (youWon) {
-            checkAnswer(LOCK_LETTER, true, router);
-            return;
-        }
+    if (youWon) {
+      checkAnswer(LOCK_LETTER, true, router);
+      return;
+    }
 
-        const choicesMinusMine = remainingChoices.filter(
-            item => item !== index
-        );
-        if (choicesMinusMine.length === 0) {
-            checkAnswer(LOCK_LETTER, false, router);
-            router.reload();
-        }
-
-        setRemainingChoices(choicesMinusMine);
-
-        setTimeout(() => {
-            const randomIndex = Math.floor(
-                Math.random() * choicesMinusMine.length
-            );
-            const randomChoice = choicesMinusMine[randomIndex];
-            const bestChoice = findMoveForRobot(allMyChoices, oIndexes);
-            const choice = bestChoice ?? randomChoice;
-            const allRobotsChoices = [choice, ...oIndexes];
-            setOIndexes(allRobotsChoices);
-            const robotWon = checkWinner(allRobotsChoices);
-
-            if (robotWon) {
-                checkAnswer(LOCK_LETTER, false, router);
-                router.reload();
-            }
-
-            setRemainingChoices(
-                choicesMinusMine.filter(item => item !== choice)
-            );
-
-            setYourTurn(true);
-        }, 2000);
-    };
-
-    return (
-        <CenteredMain>
-            <h1>Beat the robot 🤖</h1>
-            <Container>
-                {cells.map((_, i) => {
-                    if (oIndexes.includes(i)) {
-                        return <ClickedOCell key={i} />;
-                    } else if (xIndexes.includes(i)) {
-                        return <ClickedXCell key={i} />;
-                    } else {
-                        return <Cell key={i} onClick={() => switchTurn(i)} />;
-                    }
-                })}
-            </Container>
-            <h1>{yourTurn ? '💪 Your Turn' : "🦾 Robot's Turn"}</h1>
-        </CenteredMain>
+    const choicesMinusMine = remainingChoices.filter(
+      item => item !== index
     );
+    if (choicesMinusMine.length === 0) {
+      checkAnswer(LOCK_LETTER, false, router);
+      router.reload();
+    }
+
+    setRemainingChoices(choicesMinusMine);
+
+    setTimeout(() => {
+      const randomIndex = Math.floor(
+        Math.random() * choicesMinusMine.length
+      );
+      const randomChoice = choicesMinusMine[randomIndex];
+      const bestChoice = findMoveForRobot(allMyChoices, oIndexes);
+      const choice = bestChoice ?? randomChoice;
+      const allRobotsChoices = [choice, ...oIndexes];
+      setOIndexes(allRobotsChoices);
+      const robotWon = checkWinner(allRobotsChoices);
+
+      if (robotWon) {
+        checkAnswer(LOCK_LETTER, false, router);
+        router.reload();
+      }
+
+      setRemainingChoices(
+        choicesMinusMine.filter(item => item !== choice)
+      );
+
+      setYourTurn(true);
+    }, 2000);
+  };
+
+  return (
+    <CenteredMain>
+      <h1>Beat the robot 🤖</h1>
+      <Container>
+        {cells.map((_, i) => {
+          if (oIndexes.includes(i)) {
+            return <ClickedOCell key={i} />;
+          } else if (xIndexes.includes(i)) {
+            return <ClickedXCell key={i} />;
+          } else {
+            return <Cell key={i} onClick={() => switchTurn(i)} />;
+          }
+        })}
+      </Container>
+      <h1>{yourTurn ? '💪 Your Turn' : "🦾 Robot's Turn"}</h1>
+    </CenteredMain>
+  );
 }
