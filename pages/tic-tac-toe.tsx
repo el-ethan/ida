@@ -128,7 +128,7 @@ export default function T() {
       );
 
       setPlayerTurn(true);
-    }, 2000);
+    }, 1000);
   };
 
   return (
