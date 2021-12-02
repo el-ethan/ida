@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { CenteredMain } from '../../components/Centered';
-import { checkAnswer } from '../../services/checkAnswer';
+import { CenteredMain } from '../components/Centered';
+import { checkAnswer } from '../services/checkAnswer';
 
 const LOCK_LETTER = 'T';
 const Container = styled.div`
@@ -53,16 +53,16 @@ export const checkWinner = (choices: number[]) => {
 };
 
 export const findMoveForRobot = (
-  yourChoices: number[],
+  playerChoices: number[],
   robotChoices: number[]
 ): number | null => {
   const almostWinningPattern = winningPatterns.find(pattern => {
-    return pattern.filter(num => yourChoices.includes(num)).length === 2;
+    return pattern.filter(num => playerChoices.includes(num)).length === 2;
   });
 
   let choice;
   if (almostWinningPattern) {
-    choice = almostWinningPattern.find(num => !yourChoices.includes(num));
+    choice = almostWinningPattern.find(num => !playerChoices.includes(num));
   }
 
   if (choice !== undefined && !robotChoices.includes(choice)) {
@@ -78,17 +78,17 @@ export default function T() {
 
   const [remainingChoices, setRemainingChoices] = useState(cells);
 
-  const [oIndexes, setOIndexes] = useState<number[]>([]);
-  const [xIndexes, setXIndexes] = useState<number[]>([]);
-  const [yourTurn, setYourTurn] = useState(true);
+  const [playerChoiceIndexes, setPlayerChoiceIndexes] = useState<number[]>([]);
+  const [robotChoiceIndexes, setRobotChoiceIndexes] = useState<number[]>([]);
+  const [PlayerTurn, setPlayerTurn] = useState(true);
 
   const switchTurn = (index: number) => {
-    if (!yourTurn) {
+    if (!PlayerTurn) {
       return;
     }
-    const allMyChoices = [index, ...xIndexes];
-    setXIndexes(allMyChoices);
-    setYourTurn(false);
+    const allMyChoices = [index, ...robotChoiceIndexes];
+    setRobotChoiceIndexes(allMyChoices);
+    setPlayerTurn(false);
 
     const youWon = checkWinner(allMyChoices);
 
@@ -112,10 +112,10 @@ export default function T() {
         Math.random() * choicesMinusMine.length
       );
       const randomChoice = choicesMinusMine[randomIndex];
-      const bestChoice = findMoveForRobot(allMyChoices, oIndexes);
+      const bestChoice = findMoveForRobot(allMyChoices, playerChoiceIndexes);
       const choice = bestChoice ?? randomChoice;
-      const allRobotsChoices = [choice, ...oIndexes];
-      setOIndexes(allRobotsChoices);
+      const allRobotsChoices = [choice, ...playerChoiceIndexes];
+      setPlayerChoiceIndexes(allRobotsChoices);
       const robotWon = checkWinner(allRobotsChoices);
 
       if (robotWon) {
@@ -127,7 +127,7 @@ export default function T() {
         choicesMinusMine.filter(item => item !== choice)
       );
 
-      setYourTurn(true);
+      setPlayerTurn(true);
     }, 2000);
   };
 
@@ -136,16 +136,16 @@ export default function T() {
       <h1>Beat the robot 🤖</h1>
       <Container>
         {cells.map((_, i) => {
-          if (oIndexes.includes(i)) {
+          if (playerChoiceIndexes.includes(i)) {
             return <ClickedOCell key={i} />;
-          } else if (xIndexes.includes(i)) {
+          } else if (robotChoiceIndexes.includes(i)) {
             return <ClickedXCell key={i} />;
           } else {
             return <Cell key={i} onClick={() => switchTurn(i)} />;
           }
         })}
       </Container>
-      <h1>{yourTurn ? '💪 Your Turn' : "🦾 Robot's Turn"}</h1>
+      <h1>{PlayerTurn ? '💪 Your Turn' : "🦾 Robot's Turn"}</h1>
     </CenteredMain>
   );
 }
