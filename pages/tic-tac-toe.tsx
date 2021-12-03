@@ -88,16 +88,16 @@ export default function T() {
 
   const [remainingChoices, setRemainingChoices] = useState(cells);
 
-  const [playerChoiceIndexes, setPlayerChoiceIndexes] = useState<number[]>([]);
-  const [robotChoiceIndexes, setRobotChoiceIndexes] = useState<number[]>([]);
+  const [playerChoices, setPlayerChoices] = useState<number[]>([]);
+  const [robotChoices, setRobotChoices] = useState<number[]>([]);
   const [PlayerTurn, setPlayerTurn] = useState(true);
 
   const switchTurn = (index: number) => {
     if (!PlayerTurn) {
       return;
     }
-    const allMyChoices = [index, ...robotChoiceIndexes];
-    setRobotChoiceIndexes(allMyChoices);
+    const allMyChoices = [index, ...robotChoices];
+    setRobotChoices(allMyChoices);
     setPlayerTurn(false);
 
     const youWon = checkWinner(allMyChoices);
@@ -122,10 +122,10 @@ export default function T() {
         Math.random() * choicesMinusMine.length
       );
       const randomChoice = choicesMinusMine[randomIndex];
-      const bestChoice = findMoveForRobot(allMyChoices, playerChoiceIndexes);
+      const bestChoice = findMoveForRobot(allMyChoices, playerChoices);
       const choice = bestChoice ?? randomChoice;
-      const allRobotsChoices = [choice, ...playerChoiceIndexes];
-      setPlayerChoiceIndexes(allRobotsChoices);
+      const allRobotsChoices = [choice, ...playerChoices];
+      setPlayerChoices(allRobotsChoices);
       const robotWon = checkWinner(allRobotsChoices);
 
       if (robotWon) {
@@ -146,9 +146,9 @@ export default function T() {
       <h1>Beat the robot 🤖</h1>
       <Container>
         {cells.map((_, i) => {
-          if (playerChoiceIndexes.includes(i)) {
+          if (playerChoices.includes(i)) {
             return <ClickedOCell key={i} />;
-          } else if (robotChoiceIndexes.includes(i)) {
+          } else if (robotChoices.includes(i)) {
             return <ClickedXCell key={i} />;
           } else {
             return <Cell key={i} onClick={() => switchTurn(i)} />;
