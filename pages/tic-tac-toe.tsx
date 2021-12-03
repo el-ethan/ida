@@ -56,20 +56,30 @@ export const findMoveForRobot = (
   playerChoices: number[],
   robotChoices: number[]
 ): number | null => {
-  const almostWinningPattern = winningPatterns.find(pattern => {
-    return pattern.filter(num => playerChoices.includes(num)).length === 2;
-  });
 
-  let choice;
-  if (almostWinningPattern) {
-    choice = almostWinningPattern.find(num => !playerChoices.includes(num));
+  for (let i = 0; i < winningPatterns.length; i++) {
+    const movesNotChosenByPlayer = winningPatterns[i].filter(num => !playerChoices.includes(num))
+
+    const isPlayerOneMoveAway = movesNotChosenByPlayer.length === 1
+    if (!isPlayerOneMoveAway) {
+      continue
+    }
+
+    const lastMoveInPattern = movesNotChosenByPlayer[0]
+    const isLastMoveAvailable = !robotChoices.includes(lastMoveInPattern)
+
+    // console.log('********************');
+    // console.log(`last move: ${lastMoveInPattern}\nmovesNotChosenByPlayer: ${movesNotChosenByPlayer}\nplayer choices: ${playerChoices}\nrobot choices${robotChoices}`);
+    // console.log('********************');
+
+    if (isLastMoveAvailable) {
+      return lastMoveInPattern
+    } else {
+      continue
+    }
   }
 
-  if (choice !== undefined && !robotChoices.includes(choice)) {
-    return choice;
-  } else {
-    return null;
-  }
+  return null
 };
 
 export default function T() {
