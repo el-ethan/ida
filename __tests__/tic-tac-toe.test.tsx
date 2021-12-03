@@ -42,4 +42,8 @@ describe('findMoveForRobot', () => {
     it('should return the "best choice" if the first two moves are 2, 1', () => {
         expect(findMoveForRobot([2, 1], [3])).toBe(0);
     });
+
+    it('should return the "best choice" if player is close to matching more than one winning pattern', () => {
+        expect(findMoveForRobot([4, 8, 3], [0, 1])).toBe(5);
+    });
 });

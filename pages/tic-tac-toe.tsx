@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { CenteredMain } from '../../components/Centered';
-import { checkAnswer } from '../../services/checkAnswer';
+import { CenteredMain } from '../components/Centered';
+import { checkAnswer } from '../services/checkAnswer';
 
 const LOCK_LETTER = 'T';
 const Container = styled.div`
@@ -53,23 +53,33 @@ export const checkWinner = (choices: number[]) => {
 };
 
 export const findMoveForRobot = (
-  yourChoices: number[],
+  playerChoices: number[],
   robotChoices: number[]
 ): number | null => {
-  const almostWinningPattern = winningPatterns.find(pattern => {
-    return pattern.filter(num => yourChoices.includes(num)).length === 2;
-  });
 
-  let choice;
-  if (almostWinningPattern) {
-    choice = almostWinningPattern.find(num => !yourChoices.includes(num));
+  for (let i = 0; i < winningPatterns.length; i++) {
+    const movesNotChosenByPlayer = winningPatterns[i].filter(num => !playerChoices.includes(num))
+
+    const isPlayerOneMoveAway = movesNotChosenByPlayer.length === 1
+    if (!isPlayerOneMoveAway) {
+      continue
+    }
+
+    const lastMoveInPattern = movesNotChosenByPlayer[0]
+    const isLastMoveAvailable = !robotChoices.includes(lastMoveInPattern)
+
+    // console.log('********************');
+    // console.log(`last move: ${lastMoveInPattern}\nmovesNotChosenByPlayer: ${movesNotChosenByPlayer}\nplayer choices: ${playerChoices}\nrobot choices${robotChoices}`);
+    // console.log('********************');
+
+    if (isLastMoveAvailable) {
+      return lastMoveInPattern
+    } else {
+      continue
+    }
   }
 
-  if (choice !== undefined && !robotChoices.includes(choice)) {
-    return choice;
-  } else {
-    return null;
-  }
+  return null
 };
 
 export default function T() {
@@ -78,17 +88,17 @@ export default function T() {
 
   const [remainingChoices, setRemainingChoices] = useState(cells);
 
-  const [oIndexes, setOIndexes] = useState<number[]>([]);
-  const [xIndexes, setXIndexes] = useState<number[]>([]);
-  const [yourTurn, setYourTurn] = useState(true);
+  const [playerChoices, setPlayerChoices] = useState<number[]>([]);
+  const [robotChoices, setRobotChoices] = useState<number[]>([]);
+  const [PlayerTurn, setPlayerTurn] = useState(true);
 
   const switchTurn = (index: number) => {
-    if (!yourTurn) {
+    if (!PlayerTurn) {
       return;
     }
-    const allMyChoices = [index, ...xIndexes];
-    setXIndexes(allMyChoices);
-    setYourTurn(false);
+    const allMyChoices = [index, ...robotChoices];
+    setRobotChoices(allMyChoices);
+    setPlayerTurn(false);
 
     const youWon = checkWinner(allMyChoices);
 
@@ -112,10 +122,10 @@ export default function T() {
         Math.random() * choicesMinusMine.length
       );
       const randomChoice = choicesMinusMine[randomIndex];
-      const bestChoice = findMoveForRobot(allMyChoices, oIndexes);
+      const bestChoice = findMoveForRobot(allMyChoices, playerChoices);
       const choice = bestChoice ?? randomChoice;
-      const allRobotsChoices = [choice, ...oIndexes];
-      setOIndexes(allRobotsChoices);
+      const allRobotsChoices = [choice, ...playerChoices];
+      setPlayerChoices(allRobotsChoices);
       const robotWon = checkWinner(allRobotsChoices);
 
       if (robotWon) {
@@ -127,8 +137,8 @@ export default function T() {
         choicesMinusMine.filter(item => item !== choice)
       );
 
-      setYourTurn(true);
-    }, 2000);
+      setPlayerTurn(true);
+    }, 1000);
   };
 
   return (
@@ -136,16 +146,16 @@ export default function T() {
       <h1>Beat the robot 🤖</h1>
       <Container>
         {cells.map((_, i) => {
-          if (oIndexes.includes(i)) {
+          if (playerChoices.includes(i)) {
             return <ClickedOCell key={i} />;
-          } else if (xIndexes.includes(i)) {
+          } else if (robotChoices.includes(i)) {
             return <ClickedXCell key={i} />;
           } else {
             return <Cell key={i} onClick={() => switchTurn(i)} />;
           }
         })}
       </Container>
-      <h1>{yourTurn ? '💪 Your Turn' : "🦾 Robot's Turn"}</h1>
+      <h1>{PlayerTurn ? '💪 Your Turn' : "🦾 Robot's Turn"}</h1>
     </CenteredMain>
   );
 }
