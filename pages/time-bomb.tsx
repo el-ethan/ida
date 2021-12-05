@@ -4,6 +4,8 @@ import { CenteredMain } from '../components/Centered';
 import { useRouter } from 'next/router';
 import { checkAnswer } from '../services/checkAnswer';
 import Countdown, { zeroPad } from 'react-countdown';
+import timebomb from '../public/timebomb.png';
+import Image from 'next/image';
 
 type MainColor = 'red' | 'green' | 'blue';
 type ExtendedColor = MainColor | 'gray';
@@ -88,15 +90,18 @@ const Dynamite = styled.div`
 `;
 
 const TimerContainer = styled.div`
-    width: 450px;
-    height: 100px;
-    background: gray;
+    width: 5.5em;
+    height: 2em;
+    background: black;
     display: flex;
     align-items: center;
-    font-size: 5em;
-    padding-left: 50px;
-    color: black;
+    font-size: 1.7em;
+    color: red;
     font-family: monospace;
+    position: relative;
+    z-index: 1;
+    top: 4.7em;
+    left: 9.3em;
 `;
 
 const countdownRenderer = ({
@@ -116,26 +121,32 @@ const countdownRenderer = ({
   }
 };
 
+const RelativeDiv = styled.div`
+    position: relative;
+    margin-top: -5em;
+    width: 500px;
+`;
+
 const Bomb: React.FC<IBomb> = ({ onCountdownComplete, start, endTime }) => {
   return (
     <BombContainer>
-      <Dynamite />
-      <Dynamite />
-      <Dynamite />
-      <TimerContainer>
-        {start ? (
-          <Countdown
-            onComplete={onCountdownComplete}
-            precision={3}
-            intervalDelay={0}
-            zeroPadTime={2}
-            renderer={countdownRenderer}
-            date={endTime || Date.now()}
-          />
-        ) : (
-          '--:--:---'
-        )}
-      </TimerContainer>
+      <RelativeDiv>
+        <TimerContainer>
+          {start ? (
+            <Countdown
+              onComplete={onCountdownComplete}
+              precision={3}
+              intervalDelay={0}
+              zeroPadTime={2}
+              renderer={countdownRenderer}
+              date={endTime || Date.now()}
+            />
+          ) : (
+            '--:--:---'
+          )}
+        </TimerContainer>
+        <Image src={timebomb} layout="responsive" />
+      </RelativeDiv>
     </BombContainer>
   );
 };
