@@ -165,20 +165,23 @@ export default function W() {
 
     if (mainColorCount - 1 === 0) {
       setTimerStarted(false);
-      setTimeout(() => checkAnswer(LOCK_LETTER, true, router));
+      setTimeout(() => checkAnswer(LOCK_LETTER, true, router), 500);
     }
 
     if (color === mainColor) {
       setMainColorCount(oldCount => oldCount - 1);
     } else {
       setBoom(true);
-      setTimeout(() => checkAnswer(LOCK_LETTER, false, router, true));
+      setTimeout(
+        () => checkAnswer(LOCK_LETTER, false, router, true),
+        500
+      );
     }
   };
 
   const onCountdownComplete = () => {
     setBoom(true);
-    setTimeout(() => checkAnswer(LOCK_LETTER, false, router, true));
+    setTimeout(() => checkAnswer(LOCK_LETTER, false, router, true), 500);
   };
 
   return (
