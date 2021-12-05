@@ -49,6 +49,7 @@ const ControlPanelGrid = styled.div`
 const ColorSquare = styled.div`
     background: ${({ color }) => color};
     border: 1px solid black;
+    border-radius: 10px;
 `;
 
 const ColorButton: React.FC<IColorButton> = ({ originalColor, onClick }) => {
