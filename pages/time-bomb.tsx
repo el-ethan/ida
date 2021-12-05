@@ -124,7 +124,6 @@ const countdownRenderer = ({
 
 const RelativeDiv = styled.div`
     position: relative;
-    margin-top: -5em;
     width: 500px;
 `;
 
