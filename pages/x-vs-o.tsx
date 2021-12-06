@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { CenteredMain } from '../components/Centered';
 import { checkAnswer } from '../services/checkAnswer';
 
-const LOCK_LETTER = 'T';
+const LOCK_LETTER = 'X';
 const Container = styled.div`
     display: grid;
     grid-template-columns: 200px 200px 200px;
