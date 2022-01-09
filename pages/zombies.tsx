@@ -38,10 +38,27 @@ const Graveyard = styled.div`
 `;
 
 const Zombie = () => {
+  const router = useRouter();
+
   const zombieOptions = ['🧟‍♀️', '🧟', '🧟‍♂️'];
   const randomZombieIndex = getRandomNumber(zombieOptions.length);
   const [zapped, setZapped] = useState(false);
+  const checkAllZombiesZapped = () => {
+    if (typeof window === 'undefined') return;
+    const remainingUnzapped =
+            document && document.getElementsByClassName('unzapped').length;
+    console.log('********************');
+    console.log(remainingUnzapped);
+    console.log('********************');
+    if (remainingUnzapped === 0) {
+      checkAnswer(LOCK_LETTER, true, router);
+    } else if (remainingUnzapped > 55) {
+      checkAnswer(LOCK_LETTER, false, router, true);
+    }
+  };
+
   const handleZap = () => {
+    setTimeout(checkAllZombiesZapped);
     setZapped(true);
   };
 
@@ -66,7 +83,17 @@ const getZombies = (numZombies: number) => {
 
 export default function Z() {
   const initialZombieCount = 50;
-  const router = useRouter();
+
+  const [zombies, setZombies] = useState(getZombies(initialZombieCount));
+
+  useEffect(
+    () => {
+      setTimeout(() => {
+        setZombies([...zombies, ...getZombies(1)]);
+      }, 1000);
+    },
+    [zombies]
+  );
 
   /**
      * First version can just be this:
@@ -80,7 +107,7 @@ export default function Z() {
   return (
     <CenteredMain>
       <h1>Zap the zombies!</h1>
-      <Graveyard>{getZombies(initialZombieCount)}</Graveyard>
+      <Graveyard>{zombies}</Graveyard>
     </CenteredMain>
   );
 }
