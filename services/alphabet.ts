@@ -24,7 +24,7 @@ const alphabet = {
   W: '',
   X: '/x-vs-o',
   Y: '',
-  Z: ''
+  Z: '/zombies'
 };
 
 export default alphabet;
