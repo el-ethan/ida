@@ -31,7 +31,6 @@ const ZombieContainer =
 
 const Graveyard = styled.div`
     position: relative;
-    // background: brown;
     height: 500px;
     width: 500px;
 `;
