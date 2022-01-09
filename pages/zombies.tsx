@@ -39,18 +39,14 @@ const Graveyard = styled.div`
 
 const Zombie = () => {
   const router = useRouter();
-
   const zombieOptions = ['🧟‍♀️', '🧟', '🧟‍♂️'];
   const randomZombieIndex = getRandomNumber(zombieOptions.length);
   const [zapped, setZapped] = useState(false);
   const checkAllZombiesZapped = () => {
-    if (typeof window === 'undefined') return;
-    const remainingUnzapped =
-            document && document.getElementsByClassName('unzapped').length;
+    const remainingUnzapped = document.getElementsByClassName('unzapped')
+      .length;
     if (remainingUnzapped === 0) {
       checkAnswer(LOCK_LETTER, true, router);
-    } else if (remainingUnzapped > 55) {
-      checkAnswer(LOCK_LETTER, false, router, true);
     }
   };
 
