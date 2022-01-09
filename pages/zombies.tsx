@@ -47,9 +47,6 @@ const Zombie = () => {
     if (typeof window === 'undefined') return;
     const remainingUnzapped =
             document && document.getElementsByClassName('unzapped').length;
-    console.log('********************');
-    console.log(remainingUnzapped);
-    console.log('********************');
     if (remainingUnzapped === 0) {
       checkAnswer(LOCK_LETTER, true, router);
     } else if (remainingUnzapped > 55) {
