@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { CenteredMain } from '../components/Centered';
 import { useRouter } from 'next/router';
 import { checkAnswer } from '../services/checkAnswer';
+import getRandomNumber from '../services/getRandomNumber';
 
 const LOCK_LETTER = 'Z';
 
@@ -27,8 +28,6 @@ const ZombieContainer =
       display: none;
     }
 `;
-
-const getRandomNumber = (limit: number) => Math.floor(Math.random() * limit);
 
 const Graveyard = styled.div`
     position: relative;
@@ -87,15 +86,6 @@ export default function Z() {
     },
     [zombies]
   );
-
-  /**
-     * First version can just be this:
-     *
-     * Every visible zombie has a certain id
-     * we count how many visible zombies there are
-     * if the count is 0 then you win
-     * if it is > a certain number then you have been overrun by zombies
-     * */
 
   return (
     <CenteredMain>

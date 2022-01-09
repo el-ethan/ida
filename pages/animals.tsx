@@ -5,11 +5,12 @@ import { CenteredMain } from '../components/Centered';
 import { checkAnswer } from '../services/checkAnswer';
 import Image from 'next/image';
 import { useInterval } from '../services/useInterval';
+import getRandomNumber from '../services/getRandomNumber';
 
 const LOCK_LETTER = 'A';
 
 const Grabable = styled.div`
-  cursor: grabbing;
+    cursor: grabbing;
 `;
 
 function shuffle(array: Animal[]) {
@@ -20,13 +21,13 @@ function shuffle(array: Animal[]) {
   // While there remain elements to shuffle...
   while (0 !== currentIndex) {
     // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
+    randomIndex = getRandomNumber(currentIndex);
     currentIndex--;
 
     // And swap it with the current element.
     [array[currentIndex], array[randomIndex]] = [
       array[randomIndex],
-      array[currentIndex],
+      array[currentIndex]
     ];
   }
 
@@ -34,7 +35,7 @@ function shuffle(array: Animal[]) {
 }
 
 interface Animal {
-  url: string;
+    url: string;
 }
 
 const A = ({ animals }: { animals: Animal[] }) => {
@@ -92,7 +93,7 @@ export async function getServerSideProps() {
   const animals = shuffle([...cats, { url: dog.message }]);
 
   return {
-    props: { animals }, // will be passed to the page component as props
+    props: { animals } // will be passed to the page component as props
   };
 }
 
