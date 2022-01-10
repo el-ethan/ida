@@ -10,7 +10,6 @@ const LOCK_LETTER = 'Z';
 interface ZombieContainerProps {
     left: number;
     top: number;
-    zapped: boolean;
 }
 
 const ZombieContainer =
@@ -57,7 +56,6 @@ const Zombie = () => {
     <ZombieContainer
       left={getRandomNumber(500)}
       top={getRandomNumber(500)}
-      zapped={zapped}
       onClick={handleZap}
       className={zapped ? 'zapped' : 'unzapped'}
     >
