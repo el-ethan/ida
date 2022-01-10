@@ -40,8 +40,7 @@ const Zombie = () => {
   const randomZombieIndex = getRandomNumber(zombieOptions.length);
   const [zapped, setZapped] = useState(false);
   const checkAllZombiesZapped = () => {
-    const remainingUnzapped = document.getElementsByClassName('unzapped')
-      .length;
+    const remainingUnzapped = document.getElementsByClassName('unzapped').length;
     if (remainingUnzapped === 0) {
       checkAnswer(LOCK_LETTER, true, router);
     }
@@ -65,9 +64,7 @@ const Zombie = () => {
 };
 
 const getZombies = (numZombies: number) => {
-  return Array.from({ length: numZombies }, (i: number) => (
-    <Zombie key={i} />
-  ));
+  return Array.from({ length: numZombies }, (i: number) => <Zombie key={i} />);
 };
 
 export default function Z() {
