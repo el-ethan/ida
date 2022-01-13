@@ -6,6 +6,7 @@ import { checkAnswer } from '../services/checkAnswer';
 import Countdown, { zeroPad } from 'react-countdown';
 import timebomb from '../public/timebomb.png';
 import Image from 'next/image';
+import getRandomNumber from '../services/getRandomNumber';
 
 type MainColor = 'red' | 'green' | 'blue';
 type ExtendedColor = MainColor | 'gray';
@@ -65,7 +66,7 @@ const ColorButton: React.FC<IColorButton> = ({ originalColor, onClick }) => {
 
 function getRandomColor(): MainColor {
   const colors: MainColor[] = [RED, GREEN, BLUE];
-  return colors[Math.floor(Math.random() * colors.length)];
+  return colors[getRandomNumber(colors.length)];
 }
 
 function getButtonColors() {

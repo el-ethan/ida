@@ -1,24 +1,24 @@
 {
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "ecmaVersion": 6,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "modules": true
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "modules": true
+        }
+    },
+    "rules": {
+        "no-multiple-empty-lines": ["error", { "max": 1 }],
+        "space-before-function-paren": 0,
+        "react/jsx-fragments": 0,
+        "import/export": 0,
+        "max-len": [
+            "error",
+            { "code": 120, "ignoreTemplateLiterals": true, "ignoreStrings": true, "ignoreComments": true }
+        ],
+        "jsx-quotes": ["error", "prefer-double"],
+        "no-console": 2,
+        "indent": ["error", 2],
+        "quotes": ["error", "single", { "allowTemplateLiterals": true, "avoidEscape": true }]
     }
-  },
-  "rules": {
-    "no-multiple-empty-lines": ["error", {"max": 1}],
-    "space-before-function-paren": 0,
-    "react/jsx-fragments": 0,
-    "import/export": 0,
-    "jsx-quotes": ["error", "prefer-double"],
-    "no-console": 2,
-    "indent": ["error", 2],
-    "quotes": [
-      "error",
-      "single",
-      { "allowTemplateLiterals": true, "avoidEscape": true }
-    ]
-  }
 }

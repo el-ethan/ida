@@ -68,10 +68,6 @@ export const findMoveForRobot = (
     const lastMoveInPattern = movesNotChosenByPlayer[0]
     const isLastMoveAvailable = !robotChoices.includes(lastMoveInPattern)
 
-    // console.log('********************');
-    // console.log(`last move: ${lastMoveInPattern}\nmovesNotChosenByPlayer: ${movesNotChosenByPlayer}\nplayer choices: ${playerChoices}\nrobot choices${robotChoices}`);
-    // console.log('********************');
-
     if (isLastMoveAvailable) {
       return lastMoveInPattern
     } else {
