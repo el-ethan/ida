@@ -25,10 +25,7 @@ function shuffle(array: Animal[]) {
     currentIndex--;
 
     // And swap it with the current element.
-    [array[currentIndex], array[randomIndex]] = [
-      array[randomIndex],
-      array[currentIndex]
-    ];
+    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
   }
 
   return array;
@@ -42,9 +39,7 @@ const A = ({ animals }: { animals: Animal[] }) => {
   const router = useRouter();
   const [catUrl, setCatUrl] = useState(animals[0].url);
   const [animalIndex, setAnimalIndex] = useState(0);
-  const [isDog, setIsDog] = useState(
-    animals[0].url.startsWith('https://images.dog.ceo')
-  );
+  const [isDog, setIsDog] = useState(animals[0].url.startsWith('https://images.dog.ceo'));
 
   useInterval(() => {
     let animal;
@@ -76,6 +71,7 @@ const A = ({ animals }: { animals: Animal[] }) => {
             height="500px"
             width="500px"
             onClick={handleSubmit}
+            draggable="false"
           />
         </Grabable>
       )}
@@ -84,9 +80,7 @@ const A = ({ animals }: { animals: Animal[] }) => {
 };
 
 export async function getServerSideProps() {
-  const catResponse = await fetch(
-    `https://api.thecatapi.com/v1/images/search?limit=10`
-  );
+  const catResponse = await fetch(`https://api.thecatapi.com/v1/images/search?limit=10`);
   const cats = await catResponse.json();
   const dogResponse = await fetch('https://dog.ceo/api/breeds/image/random');
   const dog = await dogResponse.json();
